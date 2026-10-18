@@ -87,7 +87,7 @@ where
                 delay_ms = (delay_ms * 2).min(config.max_delay_ms);
             }
             Ok(resp) => return Ok(resp),
-            Err(e) if e.is_connect() || e.is_timeout() => {
+            Err(e) if e.is_connect() || e.is_timeout() || e.is_request() => {
                 if attempt == config.max_retries {
                     return Err(e.into());
                 }
